@@ -1,0 +1,217 @@
+% /solutions/conference-talks/conference-ornate-20min.fr.tex, 22/02/2006 De Sousa
+
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fourier}
+
+\usepackage[frenchb]{babel}
+
+% \usepackage{natbib}
+
+\usepackage{graphicx}
+
+% \usepackage{multimedia}
+% \usepackage{movie15}
+
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{12}  % for normal
+
+% Custom colors
+\usepackage{color}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\usepackage{listings}
+
+\lstset{
+language=Python,
+basicstyle=\ttm,
+otherkeywords={self},             % Add keywords here
+keywordstyle=\ttb\color{deepblue},
+emph={MyClass,__init__},          % Custom highlighting
+emphstyle=\ttb\color{deepred},    % Custom highlighting style
+stringstyle=\color{deepgreen},
+frame=tb,                         % Any extra options here
+showstringspaces=false            % 
+inputencoding=utf8,
+extendedchars=true,
+literate=%
+            {é}{{\'{e}}}1
+            {è}{{\`{e}}}1
+            {ê}{{\^{e}}}1
+            {ë}{{\¨{e}}}1
+            {û}{{\^{u}}}1
+            {ù}{{\`{u}}}1
+            {â}{{\^{a}}}1
+            {à}{{\`{a}}}1
+            {î}{{\^{i}}}1
+            {ç}{{\c{c}}}1
+            {Ç}{{\c{C}}}1
+            {É}{{\'{E}}}1
+            {Ê}{{\^{E}}}1
+            {À}{{\`{A}}}1
+            {Â}{{\^{A}}}1
+            {Î}{{\^{I}}}1
+}
+
+% include svg with LaTeX from Inkscape
+\newcommand{\executeiffilenewer}[3]{%
+ \ifnum\pdfstrcmp{\pdffilemoddate{#1}}%
+ {\pdffilemoddate{#2}}>0%
+ {\immediate\write18{#3}}\fi%
+}
+\newcommand{\includesvg}[1]{%
+ \executeiffilenewer{#1.svg}{#1.pdf}%
+ {inkscape -z -D --file=#1.svg %
+ --export-pdf=#1.pdf --export-latex}%
+ \input{#1.pdf_tex}%
+}
+
+\usepackage{xspace}
+\usepackage{hyperref}
+\usepackage{amsmath, amssymb, amsthm}
+
+\mode<presentation> {
+  \usetheme{Boadilla}
+  \usecolortheme{seahorse}
+
+  \setbeamercovered{transparent}
+  % ou autre chose (il est également possible de supprimer cette ligne)
+}
+
+
+\logo{\includegraphics[height=1.5cm]{mirabellug.jpeg}}
+
+\title[Python, IPython, et le reste]{Python et le Notebook IPython}
+
+\subtitle{Toute la puissance de Python dans une interface Ouèbe}
+
+\author[Félix Hartmann]{par Félix, pour le Mirabellug}
+
+\institute[Mirabellug]
+{
+}
+
+\date{7 juin 2013}
+
+\subject{presentation IPython Mirabellug}
+% Inséré uniquement dans la page d'information du fichier PDF.
+
+
+% À supprimer si vous ne voulez pas que la table des matières apparaisse
+% au début de chaque section :
+
+% \AtBeginSection[] {
+%   \begin{frame}<beamer>{Lignes directrices}
+%     \tableofcontents[currentsection,currentsubsection]
+%   \end{frame}
+% }
+
+% Si vous souhaitez recouvrir vos transparents un à un,
+% utilisez la commande suivante (pour plus d'info, voir la page 74 du manuel
+% d'utilisation de Beamer (version 3.06) par Till Tantau) :
+
+% \beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% \begin{frame}{Lignes directrices}
+%   \tableofcontents
+%   % Vous pouvez, si vous le souhaiter ajouter l'option [pausesections]
+% \end{frame}
+
+\begin{frame}{Python en quelques points}
+	
+	\begin{itemize}
+		\item Première version publiée en 1991 par Guido van Rossum.
+		\item Licence BSD.
+		\item Langage généraliste.
+		\item Paradigmes impératif et objet.
+		\item Typage dynamique.
+	\end{itemize}		
+	
+\end{frame}
+
+
+\begin{frame}[fragile]{L'indentation syntaxique}
+
+En Python, en bloc n'est pas délimité par des crochets \{ et \}. C'est 
+l'indentation qui sert de délimiteur.
+
+\begin{lstlisting}
+i = 10
+
+while i > 0:
+    print("Tic tac")
+    i -= 1
+
+print("BOUM !")
+\end{lstlisting}
+	
+\end{frame}
+
+
+\begin{frame}[fragile]{Les boucles for}
+
+En Python, une boucle for est une itération sur un objet itérable (une liste, 
+une chaine de caractères, un tableau\dots).
+
+\medskip
+
+Par exemple, si on veut faire une boucle sur les chiffres de 0 à 9, on crée 
+une liste qui contient ces chiffres et on itère dessus:
+
+\begin{lstlisting}
+for i in range(10):
+    if i < 2:
+        print(str(i) + u" kilomètre à pied")
+    else:
+        print(str(i) + u" kilomètres à pied")
+\end{lstlisting}
+
+Le \texttt{u} devant les chaines de caractères sert à préciser que ce sont des 
+chaines Unicode (par défaut dans la branche 3 de Python).
+
+\bigskip 
+	
+\end{frame}
+
+
+\begin{frame}{IPython en quelques points}
+
+	\begin{itemize}
+		\item Terminal interactif pour Python créé par Fernando Pérez.
+		\item IPython Notebook (depuis la version 0.13): une interface Web riche 
+			  pour IPython. La communication avec le navigateur est réalisée par
+			  ZeroMQ.
+	\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Notebook}
+	
+	\begin{itemize}
+		\item Un projet = un répertoire.
+		\item Les Notebooks sont des fichiers JSON (.ipynb).
+		\item Possibilité d'export en script Python simple (les autrex formats 
+			  d'export, comme le HTML, sont plus expérimentaux).
+		\item Un Notebook est composé de cellules, chaque cellule pouvant contenir
+			  soit du code, soit du texte au format Markdown.
+		\item Lancement: commande \texttt{ipython notebook} depuis le répertoire du 
+		      projet.
+	\end{itemize}
+	
+\end{frame}
+	
+\end{document}
