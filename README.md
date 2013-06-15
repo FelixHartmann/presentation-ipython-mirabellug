@@ -1,7 +1,7 @@
-presentation-ipython-mirabellug
-===============================
+Présentation du Notebook IPython pour le Mirabellug
+===================================================
 
-Présentation du [Notebook IPython](http://ipython.org/notebook.html) pour le [Mirabellug](http://www.mirabellug.org), le 7 juin 2013.
+Documents utilisés lors de la présentation du [Notebook IPython](http://ipython.org/notebook.html) pour le [Mirabellug](http://www.mirabellug.org), le 7 juin 2013.
 
 Le dossier `slides/` contient une courte présentation Beamer sur Python et IPython.
 
